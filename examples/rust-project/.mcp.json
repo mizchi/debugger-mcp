@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "rust": {
-      "command": "node",
-      "args": ["../../dist/lsmcp.js", "--bin", "rust-analyzer"]
-    }
-  }
-}

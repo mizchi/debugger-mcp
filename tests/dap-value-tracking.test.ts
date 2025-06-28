@@ -354,7 +354,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
       name: "debug_launch",
       arguments: {
         sessionId: "value-test-1",
-        adapter: "tcp",
+        adapter: "node",
         host: "localhost",
         port: mockPort,
         program: testProgramPath,
@@ -474,7 +474,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
       name: "debug_launch",
       arguments: {
         sessionId: "complex-value-test",
-        adapter: "tcp",
+        adapter: "node",
         host: "localhost",
         port: mockPort,
         program: testProgramPath,

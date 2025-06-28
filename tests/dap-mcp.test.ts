@@ -199,7 +199,7 @@ class MockDAPServer {
               {
                 id: 1,
                 name: "main",
-                source: { path: "/test/program.js" },
+                source: { path: "tests/fixtures/test-program.js" },
                 line: this.programState.currentLine,
                 column: 0,
               },
@@ -370,9 +370,8 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
       name: "debug_launch",
       arguments: {
         sessionId: "test-session-1",
-        adapter: "tcp",
-        adapterArgs: [`localhost:${TEST_PORT}`],
-        program: "/test/program.js",
+        adapter: "node",
+        program: "tests/fixtures/test-program.js",
         stopOnEntry: true,
       },
     });
@@ -385,7 +384,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
       name: "debug_set_breakpoints",
       arguments: {
         sessionId: "test-session-1",
-        source: "/test/program.js",
+        source: "tests/fixtures/test-program.js",
         lines: [10, 20, 30],
       },
     });
@@ -416,7 +415,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
     });
 
     expect((result as any).content[0]?.text).toContain("main");
-    expect((result as any).content[0]?.text).toContain("/test/program.js");
+    expect((result as any).content[0]?.text).toContain("tests/fixtures/test-program.js");
   });
 
   it("should disconnect session", async () => {
@@ -436,9 +435,8 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
       name: "debug_launch",
       arguments: {
         sessionId: "test-session-2",
-        adapter: "tcp",
-        adapterArgs: [`localhost:${TEST_PORT}`],
-        program: "/test/program2.js",
+        adapter: "node",
+        program: "tests/fixtures/test-program.js",
         stopOnEntry: false,
       },
     });
@@ -476,10 +474,10 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
       name: "debug_launch",
       arguments: {
         sessionId: "value-tracking-test",
-        adapter: "tcp",
+        adapter: "node",
         host: "localhost",
         port: TEST_PORT,
-        program: "/test/value-tracking.js",
+        program: "tests/fixtures/test-program.js",
         stopOnEntry: true,
       },
     });
@@ -491,7 +489,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
       name: "debug_set_breakpoints",
       arguments: {
         sessionId: "value-tracking-test",
-        source: "/test/value-tracking.js",
+        source: "tests/fixtures/test-program.js",
         lines: [5, 8, 14],
       },
     });

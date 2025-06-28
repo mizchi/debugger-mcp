@@ -4,7 +4,7 @@
 
 import { DAPClient } from "./dapClient.ts";
 import { resolveAdapter, getAdapterCapabilities } from "./adapterResolver.ts";
-import { isTypeScriptFile, createTempJsFile } from "./typescriptSupport.ts";
+// TypeScript support removed for standalone DAP package
 import type {
   InitializeRequestArguments,
   SetBreakpointsArguments,
@@ -139,12 +139,12 @@ export class DebugSession {
   async launch(program: string, args?: LaunchRequestArguments): Promise<void> {
     await this.client.sendRequest("configurationDone");
     
-    // Handle TypeScript files
+    // TypeScript support removed for standalone DAP package
     let actualProgram = program;
-    if (isTypeScriptFile(program)) {
-      // Transform TypeScript to JavaScript using ts-blank-space
-      actualProgram = createTempJsFile(program);
-    }
+    // if (isTypeScriptFile(program)) {
+    //   // Transform TypeScript to JavaScript using ts-blank-space
+    //   actualProgram = createTempJsFile(program);
+    // }
     
     await this.client.sendRequest("launch", {
       program: actualProgram,

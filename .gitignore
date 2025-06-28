@@ -148,3 +148,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 tmp/
+.dap-debug-logs/
+test-tmp-*/
+tests/tmp-*/

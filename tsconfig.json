@@ -1,23 +1,30 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022"],
     "moduleResolution": "bundler",
-    "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
+    "strict": true,
     "allowImportingTsExtensions": true,
-    "lib": ["esnext", "dom"],
-    "types": ["vitest/importMeta"],
-    
-    // Type checking options
-    "noImplicitAny": true,
-    
-    // Unused code detection
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "types": ["node", "vitest/importMeta"]
   },
-  "exclude": ["tests/fixtures/**/*", "playground/**/*"]
+  "include": [
+    "src/dap/**/*.ts",
+    "src/mcp/_mcplib.ts",
+    "src/common/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests"
+  ]
 }

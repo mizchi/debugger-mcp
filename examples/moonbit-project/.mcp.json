@@ -1,8 +1,0 @@
-{
-  "mcpServers": {
-    "moonbit": {
-      "command": "node",
-      "args": ["../../dist/moonbit-mcp.js"]
-    }
-  }
-}

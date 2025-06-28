@@ -2,15 +2,21 @@ import { defineConfig } from "tsdown";
 
 export default defineConfig({
   entry: {
-    "lsmcp": "src/mcp/lsmcp.ts",
-    "typescript-mcp": "src/mcp/typescript-mcp.ts",
-    "generic-lsp-mcp": "src/mcp/generic-lsp-mcp.ts",
     "dap-mcp": "src/dap/dap-mcp.ts",
-    "node-dap-adapter": "src/dap/adapters/node-dap-adapter.ts",
-    "minimal-adapter": "src/dap/minimal-adapter.ts",
     "debug-adapter": "src/dap/debug-adapter.ts",
+    "minimal-adapter": "src/dap/minimal-adapter.ts",
+    "node-dap-adapter": "src/dap/adapters/node-dap-adapter.ts"
   },
-  define: {
-    "import.meta.vitest": "undefined",
+  format: "esm",
+  target: "es2022",
+  clean: true,
+  banner: {
+    js: "#!/usr/bin/env node"
   },
+  external: [
+    "@modelcontextprotocol/sdk",
+    "@vscode/debugadapter",
+    "neverthrow",
+    "zod"
+  ]
 });

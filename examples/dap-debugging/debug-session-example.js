@@ -59,11 +59,11 @@ function main() {
 }
 
 // デバッグ用のエントリーポイント
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
 
-module.exports = { fibonacci, processArray };
+export { fibonacci, processArray };
 
 /*
  * DAP MCPでのデバッグ方法:
