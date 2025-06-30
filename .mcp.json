@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "lsmcp": {
-      "command": "node",
-      "args": ["dist/lsmcp.js", "-l", "typescript"]
-    },
-    "readability": {
-      "command": "npx",
-      "args": ["-y", "@mizchi/readability", "--mcp"]
-    },
     "dap": {
       "command": "node",
       "args": ["dist/dap-mcp.js"]

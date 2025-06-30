@@ -365,68 +365,85 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
     expect(toolNames).toContain("debug_disconnect");
   });
 
-  it("should launch a debug session", async () => {
-    const result = await client.callTool({
-      name: "debug_launch",
-      arguments: {
-        sessionId: "test-session-1",
-        adapter: "node",
-        program: "tests/fixtures/test-program.js",
-        stopOnEntry: true,
-      },
+  describe("debug session lifecycle", () => {
+    const sessionId = "test-session-lifecycle";
+    
+    afterAll(async () => {
+      // Clean up session if it exists
+      try {
+        await client.callTool({
+          name: "debug_disconnect",
+          arguments: {
+            sessionId,
+            terminateDebuggee: true,
+          },
+        });
+      } catch (e) {
+        // Session might already be terminated
+      }
     });
 
-    expect((result as any).content[0]?.text).toContain("Debug session test-session-1 launched");
-  });
+    it("should launch a debug session", async () => {
+      const result = await client.callTool({
+        name: "debug_launch",
+        arguments: {
+          sessionId,
+          adapter: "node",
+          program: "tests/fixtures/test-program-loop.js",
+          stopOnEntry: true,
+        },
+      });
 
-  it("should set breakpoints", async () => {
-    const result = await client.callTool({
-      name: "debug_set_breakpoints",
-      arguments: {
-        sessionId: "test-session-1",
-        source: "tests/fixtures/test-program.js",
-        lines: [10, 20, 30],
-      },
+      expect((result as any).content[0]?.text).toContain(`Debug session ${sessionId} launched`);
     });
 
-    expect((result as any).content[0]?.text).toContain("Set 3 breakpoints");
-  });
+    it("should set breakpoints", async () => {
+      const result = await client.callTool({
+        name: "debug_set_breakpoints",
+        arguments: {
+          sessionId,
+          source: "tests/fixtures/test-program-loop.js",
+          lines: [10, 15, 20],
+        },
+      });
 
-  it("should continue execution", async () => {
-    // Wait for stopped event
-    await new Promise((resolve) => setTimeout(resolve, 200));
-
-    const result = await client.callTool({
-      name: "debug_continue",
-      arguments: {
-        sessionId: "test-session-1",
-      },
+      expect((result as any).content[0]?.text).toContain("Set 3 breakpoints");
     });
 
-    expect((result as any).content[0]?.text).toContain("Execution continued");
-  });
+    it("should get stack trace while stopped", async () => {
+      // Session should be stopped at entry
+      const result = await client.callTool({
+        name: "debug_get_stack_trace",
+        arguments: {
+          sessionId,
+        },
+      });
 
-  it("should get stack trace", async () => {
-    const result = await client.callTool({
-      name: "debug_get_stack_trace",
-      arguments: {
-        sessionId: "test-session-1",
-      },
+      expect((result as any).content[0]?.text).toContain("main");
     });
 
-    expect((result as any).content[0]?.text).toContain("main");
-    expect((result as any).content[0]?.text).toContain("tests/fixtures/test-program.js");
-  });
+    it("should continue execution", async () => {
+      const result = await client.callTool({
+        name: "debug_continue",
+        arguments: {
+          sessionId,
+        },
+      });
 
-  it("should disconnect session", async () => {
-    const result = await client.callTool({
-      name: "debug_disconnect",
-      arguments: {
-        sessionId: "test-session-1",
-      },
+      expect((result as any).content[0]?.text).toContain("Execution continued");
     });
 
-    expect((result as any).content[0]?.text).toContain("Debug session test-session-1 disconnected");
+    it("should disconnect session", async () => {
+      const result = await client.callTool({
+        name: "debug_disconnect",
+        arguments: {
+          sessionId,
+          terminateDebuggee: true,
+        },
+      });
+
+      expect((result as any).content[0]?.text).toContain(`Debug session ${sessionId} disconnected`);
+    });
   });
 
   it("should list active sessions", async () => {

@@ -4,12 +4,7 @@
       "Bash(pnpm:*)",
       "Bash(ls:*)",
       "Bash(grep:*)",
-      "mcp__readability__read_url_content_as_markdown",
-      "mcp__typescript__lsmcp_*",
-      "mcp__lsmcp__lsmcp_*"
-    ],
-    "deny": [
-      "Bash(npm:*)"
+      "mcp__readability__read_url_content_as_markdown"
     ]
   }
 }
