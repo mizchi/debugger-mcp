@@ -9,7 +9,7 @@ export function createBreakpointTools(
 ): ToolDef<z.ZodType>[] {
   
   const setBreakpointsTool: ToolDef<z.ZodType> = {
-    name: "debug_set_breakpoints",
+    name: "debugger_set_breakpoints",
     description: "Set breakpoints in a source file",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -75,7 +75,7 @@ export function createBreakpointTools(
   };
 
   const setBreakpointTool: ToolDef<z.ZodType> = {
-    name: "debug_set_breakpoint",
+    name: "debugger_set_breakpoint",
     description: "Set a single breakpoint at a specific line in a source file",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -140,7 +140,7 @@ export function createBreakpointTools(
   };
 
   const removeBreakpointTool: ToolDef<z.ZodType> = {
-    name: "debug_remove_breakpoint",
+    name: "debugger_remove_breakpoint",
     description: "Remove a breakpoint from a source file",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -193,7 +193,7 @@ export function createBreakpointTools(
   };
 
   const listBreakpointsTool: ToolDef<z.ZodType> = {
-    name: "debug_list_breakpoints",
+    name: "debugger_list_breakpoints",
     description: "List all breakpoints in the debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -229,7 +229,7 @@ export function createBreakpointTools(
   };
 
   const clearBreakpointsTool: ToolDef<z.ZodType> = {
-    name: "debug_clear_breakpoints",
+    name: "debugger_clear_breakpoints",
     description: "Clear breakpoints in a source file or all breakpoints",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -275,7 +275,7 @@ export function createBreakpointTools(
   };
 
   const getBreakpointStatsTool: ToolDef<z.ZodType> = {
-    name: "debug_get_breakpoint_stats",
+    name: "debugger_get_breakpoint_stats",
     description: "Get statistics about breakpoint hits",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),

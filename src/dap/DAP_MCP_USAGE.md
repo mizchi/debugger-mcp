@@ -31,12 +31,12 @@ Add to your Claude configuration:
 
 ### Session Management
 
-#### `debug_launch`
+#### `debugger_launch`
 Launch a new debug session for a program.
 
 ```typescript
 // Example: Debug a Node.js program
-debug_launch({
+debugger_launch({
   sessionId: "node-app-1",
   adapter: "node",  // Built-in Node.js adapter is automatically resolved
   program: "/path/to/app.js",
@@ -53,12 +53,12 @@ debug_launch({
 - `rust` - Rust debugger (requires `rust-analyzer`)
 - Custom adapters can be specified by path
 
-#### `debug_attach`
+#### `debugger_attach`
 Attach to a running process.
 
 ```typescript
 // Example: Attach to Node.js process
-debug_attach({
+debugger_attach({
   sessionId: "node-attach-1",
   adapter: "node",
   port: 9229,
@@ -66,19 +66,19 @@ debug_attach({
 })
 ```
 
-#### `debug_list_sessions`
+#### `debugger_list_sessions`
 List all active debug sessions.
 
 ```typescript
-debug_list_sessions({})
+debugger_list_sessions({})
 // Returns: List of active session IDs
 ```
 
-#### `debug_disconnect`
+#### `debugger_disconnect`
 End a debug session.
 
 ```typescript
-debug_disconnect({
+debugger_disconnect({
   sessionId: "node-app-1",
   terminateDebuggee: true
 })
@@ -86,12 +86,12 @@ debug_disconnect({
 
 ### Breakpoint Management
 
-#### `debug_set_breakpoints`
+#### `debugger_set_breakpoints`
 Set breakpoints in source files.
 
 ```typescript
 // Example: Set breakpoints with conditions
-debug_set_breakpoints({
+debugger_set_breakpoints({
   sessionId: "node-app-1",
   source: "/path/to/app.js",
   lines: [10, 20, 30],
@@ -101,84 +101,84 @@ debug_set_breakpoints({
 
 ### Execution Control
 
-#### `debug_continue`
+#### `debugger_continue`
 Continue program execution.
 
 ```typescript
-debug_continue({
+debugger_continue({
   sessionId: "node-app-1"
 })
 ```
 
-#### `debug_step_over`
+#### `debugger_step_over`
 Execute the next line without entering functions.
 
 ```typescript
-debug_step_over({
+debugger_step_over({
   sessionId: "node-app-1"
 })
 ```
 
-#### `debug_step_into`
+#### `debugger_step_into`
 Step into function calls.
 
 ```typescript
-debug_step_into({
+debugger_step_into({
   sessionId: "node-app-1"
 })
 ```
 
-#### `debug_step_out`
+#### `debugger_step_out`
 Step out of the current function.
 
 ```typescript
-debug_step_out({
+debugger_step_out({
   sessionId: "node-app-1"
 })
 ```
 
-#### `debug_pause`
+#### `debugger_pause`
 Pause execution.
 
 ```typescript
-debug_pause({
+debugger_pause({
   sessionId: "node-app-1"
 })
 ```
 
 ### Inspection Tools
 
-#### `debug_get_stack_trace`
+#### `debugger_get_stack_trace`
 Get the current call stack.
 
 ```typescript
-debug_get_stack_trace({
+debugger_get_stack_trace({
   sessionId: "node-app-1"
 })
 // Returns: Stack frames with source locations
 ```
 
-#### `debug_get_variables`
+#### `debugger_get_variables`
 Inspect variables in the current scope.
 
 ```typescript
 // Get all scopes
-debug_get_variables({
+debugger_get_variables({
   sessionId: "node-app-1"
 })
 
 // Get specific scope
-debug_get_variables({
+debugger_get_variables({
   sessionId: "node-app-1",
   scopeName: "Locals"
 })
 ```
 
-#### `debug_evaluate`
+#### `debugger_evaluate`
 Evaluate expressions in the debug context.
 
 ```typescript
-debug_evaluate({
+debugger_evaluate({
   sessionId: "node-app-1",
   expression: "myArray.length + 1",
   context: "repl"
@@ -191,7 +191,7 @@ Here's a typical debugging workflow:
 
 ```typescript
 // 1. Launch debug session
-debug_launch({
+debugger_launch({
   sessionId: "debug-1",
   adapter: "node",
   program: "./buggy-app.js",
@@ -199,41 +199,41 @@ debug_launch({
 })
 
 // 2. Set breakpoints
-debug_set_breakpoints({
+debugger_set_breakpoints({
   sessionId: "debug-1",
   source: "./buggy-app.js",
   lines: [15, 25]
 })
 
 // 3. When stopped at breakpoint, inspect state
-debug_get_stack_trace({
+debugger_get_stack_trace({
   sessionId: "debug-1"
 })
 
-debug_get_variables({
+debugger_get_variables({
   sessionId: "debug-1",
   scopeName: "Locals"
 })
 
 // 4. Evaluate suspicious expressions
-debug_evaluate({
+debugger_evaluate({
   sessionId: "debug-1",
   expression: "userData.permissions",
   context: "repl"
 })
 
 // 5. Step through code
-debug_step_over({
+debugger_step_over({
   sessionId: "debug-1"
 })
 
 // 6. Continue or end session
-debug_continue({
+debugger_continue({
   sessionId: "debug-1"
 })
 
 // 7. Disconnect when done
-debug_disconnect({
+debugger_disconnect({
   sessionId: "debug-1"
 })
 ```

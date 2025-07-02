@@ -7,7 +7,7 @@ export function createExecutionTools(
 ): ToolDef<z.ZodType>[] {
   
   const continueTool: ToolDef<z.ZodType> = {
-    name: "debug_continue",
+    name: "debugger_continue",
     description: "Continue execution in debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -25,7 +25,7 @@ export function createExecutionTools(
   };
 
   const stepOverTool: ToolDef<z.ZodType> = {
-    name: "debug_step_over",
+    name: "debugger_step_over",
     description: "Step over to the next line",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -41,7 +41,7 @@ export function createExecutionTools(
   };
 
   const stepIntoTool: ToolDef<z.ZodType> = {
-    name: "debug_step_into",
+    name: "debugger_step_into",
     description: "Step into function call",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -57,7 +57,7 @@ export function createExecutionTools(
   };
 
   const stepOutTool: ToolDef<z.ZodType> = {
-    name: "debug_step_out",
+    name: "debugger_step_out",
     description: "Step out of current function",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -73,7 +73,7 @@ export function createExecutionTools(
   };
 
   const pauseTool: ToolDef<z.ZodType> = {
-    name: "debug_pause",
+    name: "debugger_pause",
     description: "Pause execution in debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -91,7 +91,7 @@ export function createExecutionTools(
   };
 
   const getThreadsTool: ToolDef<z.ZodType> = {
-    name: "debug_get_threads",
+    name: "debugger_get_threads",
     description: "Get list of threads in the debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),

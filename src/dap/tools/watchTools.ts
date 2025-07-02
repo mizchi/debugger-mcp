@@ -9,7 +9,7 @@ export function createWatchTools(
 ): ToolDef<z.ZodType>[] {
   
   const addWatchTool: ToolDef<z.ZodType> = {
-    name: "debug_add_watch",
+    name: "debugger_add_watch",
     description: "Add a watch expression to monitor during debugging",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -54,7 +54,7 @@ export function createWatchTools(
   };
 
   const removeWatchTool: ToolDef<z.ZodType> = {
-    name: "debug_remove_watch",
+    name: "debugger_remove_watch",
     description: "Remove a watch expression",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -89,7 +89,7 @@ export function createWatchTools(
   };
 
   const updateWatchTool: ToolDef<z.ZodType> = {
-    name: "debug_update_watch",
+    name: "debugger_update_watch",
     description: "Update a watch expression",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -149,7 +149,7 @@ export function createWatchTools(
   };
 
   const evaluateWatchesTool: ToolDef<z.ZodType> = {
-    name: "debug_evaluate_watches",
+    name: "debugger_evaluate_watches",
     description: "Evaluate all watch expressions in the current context",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -190,7 +190,7 @@ export function createWatchTools(
   };
 
   const listWatchesTool: ToolDef<z.ZodType> = {
-    name: "debug_list_watches",
+    name: "debugger_list_watches",
     description: "List all watch expressions for the debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -226,7 +226,7 @@ export function createWatchTools(
   };
 
   const clearWatchesTool: ToolDef<z.ZodType> = {
-    name: "debug_clear_watches",
+    name: "debugger_clear_watches",
     description: "Clear all watch expressions",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -254,7 +254,7 @@ export function createWatchTools(
   };
 
   const getWatchTool: ToolDef<z.ZodType> = {
-    name: "debug_get_watch",
+    name: "debugger_get_watch",
     description: "Get details of a specific watch expression",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),

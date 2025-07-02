@@ -42,7 +42,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Launch debug session
       const launchResult = await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -59,7 +59,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Set breakpoints at critical points
       await client.callTool({
-        name: "debug_set_breakpoints",
+        name: "debugger_set_breakpoints",
         arguments: {
           sessionId,
           source: programPath,
@@ -69,7 +69,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Continue execution
       await client.callTool({
-        name: "debug_continue",
+        name: "debugger_continue",
         arguments: {
           sessionId,
         },
@@ -77,7 +77,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Get breakpoint statistics
       const statsResult = await client.callTool({
-        name: "debug_get_breakpoint_stats",
+        name: "debugger_get_breakpoint_stats",
         arguments: {
           sessionId,
         },
@@ -89,7 +89,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Clean up
       await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
         },
@@ -101,7 +101,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Launch session
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -114,7 +114,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Track specific values
       await client.callTool({
-        name: "debug_track_value",
+        name: "debugger_track_value",
         arguments: {
           sessionId,
           name: "timeMs",
@@ -124,7 +124,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       });
       
       await client.callTool({
-        name: "debug_track_value",
+        name: "debugger_track_value",
         arguments: {
           sessionId,
           name: "timeMs",
@@ -135,7 +135,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Get value history
       const historyResult = await client.callTool({
-        name: "debug_get_value_history",
+        name: "debugger_get_value_history",
         arguments: {
           name: "timeMs",
         },
@@ -148,7 +148,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Clean up
       await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
         },
@@ -166,7 +166,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       console.log("Launching debug session...");
       
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -182,7 +182,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       console.log("Getting debug log...");
       // Get debug log
       const logResult = await client.callTool({
-        name: "debug_get_log",
+        name: "debugger_get_log",
         arguments: {
           sessionId,
           limit: 20,
@@ -201,7 +201,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       // Export log
       try {
         const exportResult = await client.callTool({
-          name: "debug_export_log",
+          name: "debugger_export_log",
           arguments: {
             sessionId,
             format: "json",
@@ -220,7 +220,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       // Clean up
       try {
         await client.callTool({
-          name: "debug_disconnect",
+          name: "debugger_disconnect",
           arguments: {
             sessionId,
           },
@@ -237,7 +237,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Launch session
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -249,7 +249,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Set conditional breakpoints
       await client.callTool({
-        name: "debug_set_breakpoints",
+        name: "debugger_set_breakpoints",
         arguments: {
           sessionId,
           source: path.join(__dirname, "../examples/dap-debugging/performance-debugging.js"),
@@ -260,7 +260,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // List breakpoints
       const listResult = await client.callTool({
-        name: "debug_list_breakpoints",
+        name: "debugger_list_breakpoints",
         arguments: {
           sessionId,
         },
@@ -273,7 +273,7 @@ describe("DAP MCP Algorithm Debugging Tests", () => {
       
       // Clean up
       await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
         },

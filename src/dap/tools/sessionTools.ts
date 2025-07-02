@@ -15,7 +15,7 @@ export function createSessionTools(
 ): ToolDef<z.ZodType>[] {
   
   const launchDebugSessionTool: ToolDef<z.ZodType> = {
-    name: "debug_launch",
+    name: "debugger_launch",
     description: "Launch a new debug session with the specified debugger and program",
     schema: z.object({
       sessionId: z.string().describe("Unique identifier for this debug session"),
@@ -100,7 +100,7 @@ export function createSessionTools(
   };
 
   const attachDebugSessionTool: ToolDef<z.ZodType> = {
-    name: "debug_attach",
+    name: "debugger_attach",
     description: "Attach to a running process for debugging",
     schema: z.object({
       sessionId: z.string().describe("Unique identifier for this debug session"),
@@ -180,7 +180,7 @@ export function createSessionTools(
   };
 
   const listDebugSessionsTool: ToolDef<z.ZodType> = {
-    name: "debug_list_sessions",
+    name: "debugger_list_sessions",
     description: "List all active debug sessions with their current state",
     schema: z.object({}),
     execute: async () => {
@@ -215,7 +215,7 @@ export function createSessionTools(
   };
 
   const terminateDebugSessionTool: ToolDef<z.ZodType> = {
-    name: "debug_terminate",
+    name: "debugger_terminate",
     description: "Terminate an active debug session",
     schema: z.object({
       sessionId: z.string().describe("Session ID to terminate"),
@@ -241,7 +241,7 @@ export function createSessionTools(
   };
 
   const getDebugSessionEventsTool: ToolDef<z.ZodType> = {
-    name: "debug_get_events",
+    name: "debugger_get_events",
     description: "Get debug events for a session",
     schema: z.object({
       sessionId: z.string().describe("Session ID"),
@@ -273,7 +273,7 @@ export function createSessionTools(
   };
 
   const disconnectDebugSessionTool: ToolDef<z.ZodType> = {
-    name: "debug_disconnect",
+    name: "debugger_disconnect",
     description: "Disconnect and end a debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -302,7 +302,7 @@ export function createSessionTools(
   };
 
   const getSessionInfoTool: ToolDef<z.ZodType> = {
-    name: "debug_get_session_info",
+    name: "debugger_get_session_info",
     description: "Get detailed information about a debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),

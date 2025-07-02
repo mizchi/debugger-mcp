@@ -31,59 +31,59 @@ npx debugger-mcp
 ### Core Features
 
 #### Session Management
-- `debug_launch` - Launch a new debug session
-- `debug_attach` - Attach to a running process
-- `debug_disconnect` - End debug session
-- `debug_terminate` - Forcefully terminate debug session
-- `debug_list_sessions` - List all active debug sessions
+- `debugger_launch` - Launch a new debug session
+- `debugger_attach` - Attach to a running process
+- `debugger_disconnect` - End debug session
+- `debugger_terminate` - Forcefully terminate debug session
+- `debugger_list_sessions` - List all active debug sessions
 
 #### Breakpoints
-- `debug_set_breakpoints` - Set breakpoints in source files
-- `debug_set_breakpoint` - Set a single breakpoint
-- `debug_remove_breakpoint` - Remove a breakpoint
-- `debug_list_breakpoints` - List all breakpoints
-- `debug_clear_breakpoints` - Clear all breakpoints
+- `debugger_set_breakpoints` - Set breakpoints in source files
+- `debugger_set_breakpoint` - Set a single breakpoint
+- `debugger_remove_breakpoint` - Remove a breakpoint
+- `debugger_list_breakpoints` - List all breakpoints
+- `debugger_clear_breakpoints` - Clear all breakpoints
 
 #### Execution Control
-- `debug_continue` - Continue execution
-- `debug_step_over` - Step over to the next line
-- `debug_step_into` - Step into function calls
-- `debug_step_out` - Step out of current function
-- `debug_pause` - Pause execution
+- `debugger_continue` - Continue execution
+- `debugger_step_over` - Step over to the next line
+- `debugger_step_into` - Step into function calls
+- `debugger_step_out` - Step out of current function
+- `debugger_pause` - Pause execution
 
 #### Debugging Tools
-- `debug_get_stack_trace` - Get current stack trace
-- `debug_get_variables` - Get variables in current scope
-- `debug_evaluate` - Evaluate expressions
-- `debug_get_threads` - Get thread information
+- `debugger_get_stack_trace` - Get current stack trace
+- `debugger_get_variables` - Get variables in current scope
+- `debugger_evaluate` - Evaluate expressions
+- `debugger_get_threads` - Get thread information
 
 #### Value Tracking
-- `debug_track_value` - Track value changes over time
-- `debug_get_value_history` - Get history of tracked values
-- `debug_set_time_checkpoint` - Set time checkpoints
-- `debug_get_time_since_checkpoint` - Get elapsed time since checkpoint
+- `debugger_track_value` - Track value changes over time
+- `debugger_get_value_history` - Get history of tracked values
+- `debugger_set_time_checkpoint` - Set time checkpoints
+- `debugger_get_time_since_checkpoint` - Get elapsed time since checkpoint
 
 #### Exception Handling
-- `debug_set_exception_breakpoints` - Configure exception breakpoints
-- `debug_get_exception_info` - Get current exception information
-- `debug_clear_exception_breakpoints` - Clear exception breakpoints
+- `debugger_set_exception_breakpoints` - Configure exception breakpoints
+- `debugger_get_exception_info` - Get current exception information
+- `debugger_clear_exception_breakpoints` - Clear exception breakpoints
 
 #### Watch Expressions
-- `debug_add_watch` - Add a watch expression
-- `debug_remove_watch` - Remove a watch expression
-- `debug_evaluate_watches` - Evaluate all watch expressions
-- `debug_list_watches` - List all watch expressions
+- `debugger_add_watch` - Add a watch expression
+- `debugger_remove_watch` - Remove a watch expression
+- `debugger_evaluate_watches` - Evaluate all watch expressions
+- `debugger_list_watches` - List all watch expressions
 
 #### Source Map Support
-- `debug_enable_source_maps` - Enable/disable source map support
-- `debug_check_source_map` - Check if a file has source maps
-- `debug_map_location` - Map locations between source and generated code
-- `debug_set_breakpoint_source_mapped` - Set breakpoint with source map resolution
+- `debugger_enable_source_maps` - Enable/disable source map support
+- `debugger_check_source_map` - Check if a file has source maps
+- `debugger_map_location` - Map locations between source and generated code
+- `debugger_set_breakpoint_source_mapped` - Set breakpoint with source map resolution
 
 #### Logging and Export
-- `debug_get_log` - Get debug session log
-- `debug_export_log` - Export debug session logs
-- `debug_get_events` - Get debug events for a session
+- `debugger_get_log` - Get debug session log
+- `debugger_export_log` - Export debug session logs
+- `debugger_get_events` - Get debug events for a session
 
 ## Supported Debug Adapters
 

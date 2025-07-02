@@ -145,7 +145,7 @@ This DAP client is designed to be wrapped as MCP tools:
 ```typescript
 // Example MCP tool
 export const debugSetBreakpointTool: ToolDef = {
-  name: "debug_set_breakpoint",
+  name: "debugger_set_breakpoint",
   description: "Set a breakpoint in the debugger",
   schema: z.object({
     file: z.string(),

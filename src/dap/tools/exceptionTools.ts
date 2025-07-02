@@ -27,7 +27,7 @@ export function createExceptionTools(
 ): ToolDef<z.ZodType>[] {
   
   const setExceptionBreakpointsTool: ToolDef<z.ZodType> = {
-    name: "debug_set_exception_breakpoints",
+    name: "debugger_set_exception_breakpoints",
     description: "Configure exception breakpoints for the debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -86,7 +86,7 @@ export function createExceptionTools(
   };
 
   const getExceptionInfoTool: ToolDef<z.ZodType> = {
-    name: "debug_get_exception_info",
+    name: "debugger_get_exception_info",
     description: "Get information about the current exception",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -146,7 +146,7 @@ export function createExceptionTools(
   };
 
   const getExceptionFiltersTool: ToolDef<z.ZodType> = {
-    name: "debug_get_exception_filters",
+    name: "debugger_get_exception_filters",
     description: "Get available exception filters for the debug adapter",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -182,7 +182,7 @@ export function createExceptionTools(
   };
 
   const clearExceptionBreakpointsTool: ToolDef<z.ZodType> = {
-    name: "debug_clear_exception_breakpoints",
+    name: "debugger_clear_exception_breakpoints",
     description: "Clear all exception breakpoints",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),

@@ -11,7 +11,7 @@
 - [x] 基本的なデバッグセッションの動作確認
 - [x] ブレークポイント機能の動作確認
 - [x] ステッピング機能の動作確認
-- [x] `debug_get_state` ツールの不足を修正 → `debug_get_session_info` に置き換え
+- [x] `debugger_get_state` ツールの不足を修正 → `debugger_get_session_info` に置き換え
 - [x] エラーハンドリングのテスト修正（MCPレスポンス形式に対応）
 - [x] ウォッチ式のタイミング問題を部分的に修正
 

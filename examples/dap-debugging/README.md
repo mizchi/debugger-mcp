@@ -44,7 +44,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 ```javascript
 // 1. デバッグセッションを開始
 {
-  "tool": "debug_launch",
+  "tool": "debugger_launch",
   "arguments": {
     "sessionId": "my-debug",
     "adapter": "node",
@@ -56,7 +56,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 
 // 2. ブレークポイントを設定
 {
-  "tool": "debug_set_breakpoints",
+  "tool": "debugger_set_breakpoints",
   "arguments": {
     "sessionId": "my-debug",
     "source": "examples/dap-debugging/lcs-algorithm.js",
@@ -66,7 +66,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 
 // 3. 実行を継続
 {
-  "tool": "debug_continue",
+  "tool": "debugger_continue",
   "arguments": {
     "sessionId": "my-debug"
   }
@@ -74,7 +74,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 
 // 4. 変数を確認
 {
-  "tool": "debug_get_variables",
+  "tool": "debugger_get_variables",
   "arguments": {
     "sessionId": "my-debug",
     "scopeName": "Local"
@@ -83,7 +83,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 
 // 5. セッションを終了
 {
-  "tool": "debug_disconnect",
+  "tool": "debugger_disconnect",
   "arguments": {
     "sessionId": "my-debug"
   }
@@ -95,7 +95,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 #### 条件付きブレークポイント
 ```javascript
 {
-  "tool": "debug_set_breakpoints",
+  "tool": "debugger_set_breakpoints",
   "arguments": {
     "sessionId": "my-debug",
     "source": "performance-debugging.js",
@@ -108,7 +108,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 #### 値の追跡
 ```javascript
 {
-  "tool": "debug_track_value",
+  "tool": "debugger_track_value",
   "arguments": {
     "sessionId": "my-debug",
     "name": "dp[i][j]",
@@ -121,7 +121,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 ```javascript
 // ログを取得
 {
-  "tool": "debug_get_log",
+  "tool": "debugger_get_log",
   "arguments": {
     "sessionId": "my-debug",
     "eventType": "breakpoint_hit",
@@ -131,7 +131,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 
 // ログをエクスポート
 {
-  "tool": "debug_export_log",
+  "tool": "debugger_export_log",
   "arguments": {
     "sessionId": "my-debug",
     "format": "json"
@@ -149,7 +149,7 @@ DAP MCPツールの基本的な使い方を示すサンプルプログラムで�
 
 ## トラブルシューティング
 
-- **セッションが見つからない**: まず `debug_launch` でセッションを作成
+- **セッションが見つからない**: まず `debugger_launch` でセッションを作成
 - **操作ができない**: セッションの状態を確認（stopped/running）
 - **ログが記録されない**: `enableLogging: true` を指定
 - **ブレークポイントがヒットしない**: ファイルパスと行番号を確認

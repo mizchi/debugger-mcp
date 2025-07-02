@@ -29,8 +29,53 @@ const BUILTIN_ADAPTERS: Record<string, AdapterInfo> = {
       supportsEvaluateForHovers: true,
     }
   },
+  python: {
+    command: "python3",
+    args: ["-m", "debugpy.adapter"],
+    capabilities: {
+      supportsConfigurationDoneRequest: true,
+      supportsConditionalBreakpoints: true,
+      supportsEvaluateForHovers: true,
+      supportsSetVariable: true,
+      supportsGotoTargetsRequest: true,
+      supportsCompletionsRequest: true,
+      supportsModulesRequest: true,
+      supportsValueFormattingOptions: true,
+      supportsLogPoints: true,
+      supportsSetExpression: true,
+      supportsDataBreakpoints: false,
+      supportsTerminateRequest: true,
+      supportsDelayedStackTraceLoading: true,
+      supportsClipboardContext: true,
+      supportsSteppingGranularity: true,
+      supportsInstructionBreakpoints: false,
+      supportsExceptionFilterOptions: true,
+    }
+  },
+  python3: {
+    command: "python3",
+    args: ["-m", "debugpy.adapter"],
+    capabilities: {
+      supportsConfigurationDoneRequest: true,
+      supportsConditionalBreakpoints: true,
+      supportsEvaluateForHovers: true,
+      supportsSetVariable: true,
+      supportsGotoTargetsRequest: true,
+      supportsCompletionsRequest: true,
+      supportsModulesRequest: true,
+      supportsValueFormattingOptions: true,
+      supportsLogPoints: true,
+      supportsSetExpression: true,
+      supportsDataBreakpoints: false,
+      supportsTerminateRequest: true,
+      supportsDelayedStackTraceLoading: true,
+      supportsClipboardContext: true,
+      supportsSteppingGranularity: true,
+      supportsInstructionBreakpoints: false,
+      supportsExceptionFilterOptions: true,
+    }
+  },
   // Add more built-in adapters here in the future
-  // python: { ... },
   // go: { ... },
 };
 

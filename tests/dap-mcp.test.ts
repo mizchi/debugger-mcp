@@ -356,13 +356,13 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
     const tools = await client.listTools();
     const toolNames = tools.tools.map((t) => t.name);
     
-    expect(toolNames).toContain("debug_launch");
-    expect(toolNames).toContain("debug_attach");
-    expect(toolNames).toContain("debug_set_breakpoints");
-    expect(toolNames).toContain("debug_continue");
-    expect(toolNames).toContain("debug_step_over");
-    expect(toolNames).toContain("debug_get_stack_trace");
-    expect(toolNames).toContain("debug_disconnect");
+    expect(toolNames).toContain("debugger_launch");
+    expect(toolNames).toContain("debugger_attach");
+    expect(toolNames).toContain("debugger_set_breakpoints");
+    expect(toolNames).toContain("debugger_continue");
+    expect(toolNames).toContain("debugger_step_over");
+    expect(toolNames).toContain("debugger_get_stack_trace");
+    expect(toolNames).toContain("debugger_disconnect");
   });
 
   describe("debug session lifecycle", () => {
@@ -372,7 +372,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
       // Clean up session if it exists
       try {
         await client.callTool({
-          name: "debug_disconnect",
+          name: "debugger_disconnect",
           arguments: {
             sessionId,
             terminateDebuggee: true,
@@ -385,7 +385,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     it("should launch a debug session", async () => {
       const result = await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -399,7 +399,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     it("should set breakpoints", async () => {
       const result = await client.callTool({
-        name: "debug_set_breakpoints",
+        name: "debugger_set_breakpoints",
         arguments: {
           sessionId,
           source: "tests/fixtures/test-program-loop.js",
@@ -413,7 +413,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
     it("should get stack trace while stopped", async () => {
       // Session should be stopped at entry
       const result = await client.callTool({
-        name: "debug_get_stack_trace",
+        name: "debugger_get_stack_trace",
         arguments: {
           sessionId,
         },
@@ -424,7 +424,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     it("should continue execution", async () => {
       const result = await client.callTool({
-        name: "debug_continue",
+        name: "debugger_continue",
         arguments: {
           sessionId,
         },
@@ -435,7 +435,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     it("should disconnect session", async () => {
       const result = await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
           terminateDebuggee: true,
@@ -449,7 +449,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
   it("should list active sessions", async () => {
     // Create a new session
     await client.callTool({
-      name: "debug_launch",
+      name: "debugger_launch",
       arguments: {
         sessionId: "test-session-2",
         adapter: "node",
@@ -459,7 +459,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
     });
 
     const result = await client.callTool({
-      name: "debug_list_sessions",
+      name: "debugger_list_sessions",
       arguments: {},
     });
 
@@ -467,7 +467,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Clean up
     await client.callTool({
-      name: "debug_disconnect",
+      name: "debugger_disconnect",
       arguments: {
         sessionId: "test-session-2",
       },
@@ -476,7 +476,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
   it("should handle errors for non-existent sessions", async () => {
     const result = await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "non-existent",
       },
@@ -488,7 +488,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
   it.skip("should track value changes through debugging", async () => {
     // Launch debug session
     const launchResult = await client.callTool({
-      name: "debug_launch",
+      name: "debugger_launch",
       arguments: {
         sessionId: "value-tracking-test",
         adapter: "node",
@@ -503,7 +503,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Set breakpoints
     const bpResult = await client.callTool({
-      name: "debug_set_breakpoints",
+      name: "debugger_set_breakpoints",
       arguments: {
         sessionId: "value-tracking-test",
         source: "tests/fixtures/test-program.js",
@@ -515,7 +515,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Get initial variables (counter should be 0)
     const vars1 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-tracking-test",
       },
@@ -525,7 +525,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Continue to first breakpoint
     await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "value-tracking-test",
       },
@@ -536,7 +536,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Get variables after first change (counter should be 5)
     const vars2 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-tracking-test",
       },
@@ -546,7 +546,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Continue to second breakpoint
     await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "value-tracking-test",
       },
@@ -556,7 +556,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Get variables after second change (counter should be 15)
     const vars3 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-tracking-test",
       },
@@ -566,7 +566,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Evaluate expression
     const evalResult = await client.callTool({
-      name: "debug_evaluate",
+      name: "debugger_evaluate",
       arguments: {
         sessionId: "value-tracking-test",
         expression: "counter + 100",
@@ -577,7 +577,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Continue to third breakpoint (object change)
     await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "value-tracking-test",
       },
@@ -587,7 +587,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Get variables after object change
     const vars4 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-tracking-test",
       },
@@ -598,7 +598,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Server", () => {
 
     // Clean up
     await client.callTool({
-      name: "debug_disconnect",
+      name: "debugger_disconnect",
       arguments: {
         sessionId: "value-tracking-test",
       },

@@ -374,7 +374,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
   it.skip("should track value changes through breakpoints", async () => {
     // Launch debug session
     const launchResult = await client.callTool({
-      name: "debug_launch",
+      name: "debugger_launch",
       arguments: {
         sessionId: "value-test-1",
         adapter: "node",
@@ -387,7 +387,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Set breakpoints at value change locations
     const bpResult = await client.callTool({
-      name: "debug_set_breakpoints",
+      name: "debugger_set_breakpoints",
       arguments: {
         sessionId: "value-test-1",
         source: testProgramPath,
@@ -402,7 +402,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Get initial variables (counter should be 0)
     const vars1 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-test-1",
       }
@@ -412,7 +412,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Continue to first breakpoint (line 5)
     await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "value-test-1",
       }
@@ -423,7 +423,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Get variables after first change (counter should be 5)
     const vars2 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-test-1",
       }
@@ -433,7 +433,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Continue to second breakpoint (line 8)
     await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "value-test-1",
       }
@@ -443,7 +443,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Get variables after second change (counter should be 15)
     const vars3 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-test-1",
       }
@@ -453,7 +453,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Evaluate expression
     const evalResult = await client.callTool({
-      name: "debug_evaluate",
+      name: "debugger_evaluate",
       arguments: {
         sessionId: "value-test-1",
         expression: "counter + 100",
@@ -464,7 +464,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Continue to third breakpoint (line 14) - object changes
     await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "value-test-1",
       }
@@ -474,7 +474,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Get variables after object change
     const vars4 = await client.callTool({
-      name: "debug_get_variables",
+      name: "debugger_get_variables",
       arguments: {
         sessionId: "value-test-1",
       }
@@ -485,7 +485,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Disconnect
     await client.callTool({
-      name: "debug_disconnect",
+      name: "debugger_disconnect",
       arguments: {
         sessionId: "value-test-1",
         terminateDebuggee: true,
@@ -496,7 +496,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
   it("should handle complex value tracking scenarios", async () => {
     // Launch with complex tracking
     const launchResult = await client.callTool({
-      name: "debug_launch",
+      name: "debugger_launch",
       arguments: {
         sessionId: "complex-value-test",
         adapter: "node",
@@ -509,7 +509,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Set conditional breakpoints
     const bpResult = await client.callTool({
-      name: "debug_set_breakpoints",
+      name: "debugger_set_breakpoints",
       arguments: {
         sessionId: "complex-value-test",
         source: testProgramPath,
@@ -522,7 +522,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Continue and verify conditional breakpoints work
     await client.callTool({
-      name: "debug_continue",
+      name: "debugger_continue",
       arguments: {
         sessionId: "complex-value-test",
       }
@@ -530,7 +530,7 @@ describe.skipIf(process.env.CI === "true")("DAP MCP Value Tracking", () => {
 
     // Disconnect
     await client.callTool({
-      name: "debug_disconnect",
+      name: "debugger_disconnect",
       arguments: {
         sessionId: "complex-value-test",
         terminateDebuggee: true,

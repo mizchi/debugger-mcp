@@ -57,7 +57,7 @@ describe("DAP MCP Source Map Support", () => {
   afterEach(async () => {
     try {
       await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
         },
@@ -70,7 +70,7 @@ describe("DAP MCP Source Map Support", () => {
   describe("Source Map Configuration", () => {
     it("should enable and disable source map support", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -81,7 +81,7 @@ describe("DAP MCP Source Map Support", () => {
 
       // Enable source maps
       const enableResult = await client.callTool({
-        name: "debug_enable_source_maps",
+        name: "debugger_enable_source_maps",
         arguments: {
           sessionId,
           enabled: true,
@@ -93,7 +93,7 @@ describe("DAP MCP Source Map Support", () => {
 
       // Disable source maps
       const disableResult = await client.callTool({
-        name: "debug_enable_source_maps",
+        name: "debugger_enable_source_maps",
         arguments: {
           sessionId,
           enabled: false,
@@ -135,7 +135,7 @@ debugger;
       const jsFile = path.join(testDir, "test.js");
 
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -145,7 +145,7 @@ debugger;
 
       // Check if source map is detected
       const checkResult = await client.callTool({
-        name: "debug_check_source_map",
+        name: "debugger_check_source_map",
         arguments: {
           sessionId,
           file: jsFile,
@@ -172,7 +172,7 @@ console.log(message);
       fs.writeFileSync(jsFile, jsContent);
 
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -181,7 +181,7 @@ console.log(message);
       });
 
       const checkResult = await client.callTool({
-        name: "debug_check_source_map",
+        name: "debugger_check_source_map",
         arguments: {
           sessionId,
           file: jsFile,
@@ -197,7 +197,7 @@ console.log(message);
   describe("Location Mapping", () => {
     it("should map locations between source and generated code", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -208,7 +208,7 @@ console.log(message);
 
       // Test mapping from TypeScript to JavaScript
       const mapResult = await client.callTool({
-        name: "debug_map_location",
+        name: "debugger_map_location",
         arguments: {
           sessionId,
           file: path.join(testDir, "example.ts"),
@@ -278,7 +278,7 @@ try {
       }
 
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -289,7 +289,7 @@ try {
 
       // Enable source maps
       await client.callTool({
-        name: "debug_enable_source_maps",
+        name: "debugger_enable_source_maps",
         arguments: {
           sessionId,
           enabled: true,
@@ -299,7 +299,7 @@ try {
       // The test would need actual debugging to work properly
       // For now, we just test that the tool exists
       const tools = await client.listTools();
-      const hasTransformTool = tools.tools.some(t => t.name === "debug_transform_stack_trace");
+      const hasTransformTool = tools.tools.some(t => t.name === "debugger_transform_stack_trace");
       expect(hasTransformTool).toBe(true);
     });
   });
@@ -316,7 +316,7 @@ line 5`;
       fs.writeFileSync(testFile, testContent);
 
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -326,7 +326,7 @@ line 5`;
       });
 
       const contentResult = await client.callTool({
-        name: "debug_get_source_content",
+        name: "debugger_get_source_content",
         arguments: {
           sessionId,
           file: testFile,
@@ -347,7 +347,7 @@ line 5`;
   describe("Breakpoint with Source Maps", () => {
     it("should set breakpoints with source map resolution", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -357,7 +357,7 @@ line 5`;
       });
 
       const result = await client.callTool({
-        name: "debug_set_breakpoint_source_mapped",
+        name: "debugger_set_breakpoint_source_mapped",
         arguments: {
           sessionId,
           source: path.join(testDir, "example.ts"),
@@ -376,7 +376,7 @@ line 5`;
   describe("Cache Management", () => {
     it("should clear source map cache", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -386,7 +386,7 @@ line 5`;
       });
 
       const result = await client.callTool({
-        name: "debug_clear_source_map_cache",
+        name: "debugger_clear_source_map_cache",
         arguments: {
           sessionId,
         },

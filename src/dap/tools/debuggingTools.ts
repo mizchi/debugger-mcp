@@ -13,7 +13,7 @@ export function createDebuggingTools(
 ): ToolDef<z.ZodType>[] {
   
   const getStackTraceTool: ToolDef<z.ZodType> = {
-    name: "debug_get_stack_trace",
+    name: "debugger_get_stack_trace",
     description: "Get the current stack trace",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -35,7 +35,7 @@ export function createDebuggingTools(
   };
 
   const getVariablesTool: ToolDef<z.ZodType> = {
-    name: "debug_get_variables",
+    name: "debugger_get_variables",
     description: "Get variables in the current scope",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -88,7 +88,7 @@ export function createDebuggingTools(
   };
 
   const evaluateExpressionTool: ToolDef<z.ZodType> = {
-    name: "debug_evaluate",
+    name: "debugger_evaluate",
     description: "Evaluate an expression in the current debug context",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -124,7 +124,7 @@ export function createDebuggingTools(
   };
 
   const trackValueTool: ToolDef<z.ZodType> = {
-    name: "debug_track_value",
+    name: "debugger_track_value",
     description: "Track a value over time during debugging",
     schema: z.object({
       sessionId: z.string().optional().describe("Debug session ID (optional for global tracking)"),
@@ -143,7 +143,7 @@ export function createDebuggingTools(
   };
 
   const getValueHistoryTool: ToolDef<z.ZodType> = {
-    name: "debug_get_value_history",
+    name: "debugger_get_value_history",
     description: "Get the history of tracked values",
     schema: z.object({
       name: z.string().optional().describe("Name/key to get history for (all if not specified)"),
@@ -183,7 +183,7 @@ export function createDebuggingTools(
   };
 
   const setTimeCheckpointTool: ToolDef<z.ZodType> = {
-    name: "debug_set_time_checkpoint",
+    name: "debugger_set_time_checkpoint",
     description: "Set a named time checkpoint for performance tracking",
     schema: z.object({
       label: z.string().describe("Label for the checkpoint"),
@@ -195,7 +195,7 @@ export function createDebuggingTools(
   };
 
   const getTimeSinceCheckpointTool: ToolDef<z.ZodType> = {
-    name: "debug_get_time_since_checkpoint",
+    name: "debugger_get_time_since_checkpoint",
     description: "Get elapsed time since a checkpoint",
     schema: z.object({
       label: z.string().describe("Label of the checkpoint"),
@@ -214,7 +214,7 @@ export function createDebuggingTools(
   };
 
   const getDebugLogTool: ToolDef<z.ZodType> = {
-    name: "debug_get_log",
+    name: "debugger_get_log",
     description: "Get debug event log for a session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -246,7 +246,7 @@ export function createDebuggingTools(
   };
 
   const exportDebugLogTool: ToolDef<z.ZodType> = {
-    name: "debug_export_log",
+    name: "debugger_export_log",
     description: "Export debug event log to a file",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -298,7 +298,7 @@ export function createDebuggingTools(
   };
 
   const cleanupSessionsTool: ToolDef<z.ZodType> = {
-    name: "debug_cleanup_sessions",
+    name: "debugger_cleanup_sessions",
     description: "Clean up terminated or stale debug sessions",
     schema: z.object({
       maxIdleMinutes: z.number().optional().describe("Maximum idle time in minutes before cleaning up (default: 30)"),

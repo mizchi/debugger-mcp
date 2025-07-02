@@ -75,7 +75,7 @@ The DAP MCP server now includes automatic adapter resolution for Node.js debuggi
 ```javascript
 // Using the DAP MCP server
 const result = await client.callTool({
-  name: "debug_launch",
+  name: "debugger_launch",
   arguments: {
     sessionId: "my-debug-session",
     adapter: "node",  // Automatically resolves to the built-in Node.js adapter

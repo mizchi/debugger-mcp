@@ -48,7 +48,7 @@ describe("DAP MCP Exception Breakpoints", () => {
   afterEach(async () => {
     try {
       await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
         },
@@ -88,7 +88,7 @@ setTimeout(() => {
       try {
         // Launch debug session
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -99,7 +99,7 @@ setTimeout(() => {
 
         // Set exception breakpoints
         const result = await client.callTool({
-          name: "debug_set_exception_breakpoints",
+          name: "debugger_set_exception_breakpoints",
           arguments: {
             sessionId,
             filters: ["all", "uncaught"],
@@ -118,7 +118,7 @@ setTimeout(() => {
 
     it("should set conditional exception breakpoints", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -128,7 +128,7 @@ setTimeout(() => {
       });
 
       const result = await client.callTool({
-        name: "debug_set_exception_breakpoints",
+        name: "debugger_set_exception_breakpoints",
         arguments: {
           sessionId,
           filters: ["all"],
@@ -148,7 +148,7 @@ setTimeout(() => {
 
     it("should get available exception filters", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -158,7 +158,7 @@ setTimeout(() => {
       });
 
       const result = await client.callTool({
-        name: "debug_get_exception_filters",
+        name: "debugger_get_exception_filters",
         arguments: {
           sessionId,
         },
@@ -172,7 +172,7 @@ setTimeout(() => {
 
     it("should clear exception breakpoints", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -183,7 +183,7 @@ setTimeout(() => {
 
       // Set exception breakpoints first
       await client.callTool({
-        name: "debug_set_exception_breakpoints",
+        name: "debugger_set_exception_breakpoints",
         arguments: {
           sessionId,
           filters: ["all", "uncaught"],
@@ -192,7 +192,7 @@ setTimeout(() => {
 
       // Clear them
       const result = await client.callTool({
-        name: "debug_clear_exception_breakpoints",
+        name: "debugger_clear_exception_breakpoints",
         arguments: {
           sessionId,
         },
@@ -215,7 +215,7 @@ throw new Error("Test exception");
       try {
         // Launch debug session
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -226,7 +226,7 @@ throw new Error("Test exception");
 
         // Set exception breakpoints
         await client.callTool({
-          name: "debug_set_exception_breakpoints",
+          name: "debugger_set_exception_breakpoints",
           arguments: {
             sessionId,
             filters: ["all"],
@@ -235,7 +235,7 @@ throw new Error("Test exception");
 
         // Continue to hit the exception
         await client.callTool({
-          name: "debug_continue",
+          name: "debugger_continue",
           arguments: {
             sessionId,
           },
@@ -247,7 +247,7 @@ throw new Error("Test exception");
         // Try to get exception info
         try {
           const result = await client.callTool({
-            name: "debug_get_exception_info",
+            name: "debugger_get_exception_info",
             arguments: {
               sessionId,
               threadId: 1,
@@ -273,7 +273,7 @@ throw new Error("Test exception");
   describe("Exception Breakpoint with Different Modes", () => {
     it("should configure exception options with break modes", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -283,7 +283,7 @@ throw new Error("Test exception");
       });
 
       const result = await client.callTool({
-        name: "debug_set_exception_breakpoints",
+        name: "debugger_set_exception_breakpoints",
         arguments: {
           sessionId,
           filters: [],

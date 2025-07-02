@@ -44,7 +44,7 @@ describe("DAP MCP Integration Tests", () => {
   afterEach(async () => {
     try {
       await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
         },
@@ -73,7 +73,7 @@ debugger;
       try {
         // 1. Launch debug session
         const launchResult = await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -87,7 +87,7 @@ debugger;
 
         // 2. Set breakpoint at line 4 (inside the loop)
         const breakpointResult = await client.callTool({
-          name: "debug_set_breakpoint",
+          name: "debugger_set_breakpoint",
           arguments: {
             sessionId,
             source: testFile,
@@ -100,7 +100,7 @@ debugger;
 
         // 3. Continue execution
         await client.callTool({
-          name: "debug_continue",
+          name: "debugger_continue",
           arguments: {
             sessionId,
           },
@@ -111,7 +111,7 @@ debugger;
 
         // 4. Check current state (should be stopped at breakpoint)
         const stateResult = await client.callTool({
-          name: "debug_get_session_info",
+          name: "debugger_get_session_info",
           arguments: {
             sessionId,
           },
@@ -122,7 +122,7 @@ debugger;
 
         // 5. Get stack trace
         const stackResult = await client.callTool({
-          name: "debug_stack_trace",
+          name: "debugger_stack_trace",
           arguments: {
             sessionId,
           },
@@ -133,7 +133,7 @@ debugger;
 
         // 6. Get local variables
         const variablesResult = await client.callTool({
-          name: "debug_variables",
+          name: "debugger_variables",
           arguments: {
             sessionId,
           },
@@ -144,7 +144,7 @@ debugger;
 
         // 7. Step over
         await client.callTool({
-          name: "debug_step_over",
+          name: "debugger_step_over",
           arguments: {
             sessionId,
           },
@@ -152,7 +152,7 @@ debugger;
 
         // 8. Continue to end
         await client.callTool({
-          name: "debug_continue",
+          name: "debugger_continue",
           arguments: {
             sessionId,
           },
@@ -160,7 +160,7 @@ debugger;
 
         // 9. Disconnect
         const disconnectResult = await client.callTool({
-          name: "debug_disconnect",
+          name: "debugger_disconnect",
           arguments: {
             sessionId,
           },
@@ -200,7 +200,7 @@ console.log("Done");
       try {
         // Launch with exception breakpoints
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -210,7 +210,7 @@ console.log("Done");
 
         // Set exception breakpoints
         const exceptionResult = await client.callTool({
-          name: "debug_set_exception_breakpoints",
+          name: "debugger_set_exception_breakpoints",
           arguments: {
             sessionId,
             filters: ["caught", "uncaught"],
@@ -222,7 +222,7 @@ console.log("Done");
 
         // Continue and let it run
         await client.callTool({
-          name: "debug_continue",
+          name: "debugger_continue",
           arguments: {
             sessionId,
           },
@@ -261,7 +261,7 @@ debugger;
       try {
         // Launch debug session
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -271,7 +271,7 @@ debugger;
 
         // Add watch expressions
         const watch1Result = await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "x + y",
@@ -282,7 +282,7 @@ debugger;
         expect(watch1Text).toContain("Watch added");
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "obj",
@@ -291,7 +291,7 @@ debugger;
 
         // Continue to first breakpoint
         await client.callTool({
-          name: "debug_continue",
+          name: "debugger_continue",
           arguments: {
             sessionId,
           },
@@ -302,7 +302,7 @@ debugger;
 
         // Evaluate watches at first breakpoint
         const evalResult1 = await client.callTool({
-          name: "debug_evaluate_watches",
+          name: "debugger_evaluate_watches",
           arguments: {
             sessionId,
           },
@@ -313,7 +313,7 @@ debugger;
 
         // Continue to second breakpoint
         await client.callTool({
-          name: "debug_continue",
+          name: "debugger_continue",
           arguments: {
             sessionId,
           },
@@ -324,7 +324,7 @@ debugger;
 
         // Evaluate watches at second breakpoint
         const evalResult2 = await client.callTool({
-          name: "debug_evaluate_watches",
+          name: "debugger_evaluate_watches",
           arguments: {
             sessionId,
           },
@@ -335,7 +335,7 @@ debugger;
 
         // Remove a watch
         const watchListResult = await client.callTool({
-          name: "debug_list_watches",
+          name: "debugger_list_watches",
           arguments: {
             sessionId,
           },
@@ -360,7 +360,7 @@ debugger;
       try {
         // Launch two sessions
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId: sessionId1,
             adapter: "node",
@@ -370,7 +370,7 @@ debugger;
         });
 
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId: sessionId2,
             adapter: "node",
@@ -381,7 +381,7 @@ debugger;
 
         // List sessions
         const listResult = await client.callTool({
-          name: "debug_list_sessions",
+          name: "debugger_list_sessions",
           arguments: {},
         });
 
@@ -391,7 +391,7 @@ debugger;
 
         // Get state of each session
         const state1Result = await client.callTool({
-          name: "debug_get_session_info",
+          name: "debugger_get_session_info",
           arguments: {
             sessionId: sessionId1,
           },
@@ -402,14 +402,14 @@ debugger;
 
         // Disconnect both sessions
         await client.callTool({
-          name: "debug_disconnect",
+          name: "debugger_disconnect",
           arguments: {
             sessionId: sessionId1,
           },
         });
 
         await client.callTool({
-          name: "debug_disconnect",
+          name: "debugger_disconnect",
           arguments: {
             sessionId: sessionId2,
           },
@@ -419,13 +419,13 @@ debugger;
         // Clean up on error
         try {
           await client.callTool({
-            name: "debug_disconnect",
+            name: "debugger_disconnect",
             arguments: { sessionId: sessionId1 },
           });
         } catch {}
         try {
           await client.callTool({
-            name: "debug_disconnect",
+            name: "debugger_disconnect",
             arguments: { sessionId: sessionId2 },
           });
         } catch {}
@@ -436,7 +436,7 @@ debugger;
     it("should reject duplicate session IDs", async () => {
       // Launch first session
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -447,7 +447,7 @@ debugger;
 
       // Try to launch with same ID
       const duplicateResult = await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -465,7 +465,7 @@ debugger;
   describe("Error Handling", () => {
     it("should handle invalid session ID gracefully", async () => {
       const result = await client.callTool({
-        name: "debug_continue",
+        name: "debugger_continue",
         arguments: {
           sessionId: "non-existent-session",
         },
@@ -479,7 +479,7 @@ debugger;
     it("should handle invalid operations for session state", async () => {
       // Launch session
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -490,7 +490,7 @@ debugger;
 
       // Try to step when running
       const stepResult = await client.callTool({
-        name: "debug_step_over",
+        name: "debugger_step_over",
         arguments: {
           sessionId,
         },
@@ -506,39 +506,39 @@ debugger;
     it("should list all available debug tools", async () => {
       const tools = await client.listTools();
       
-      const debugTools = tools.tools.filter(t => t.name.startsWith("debug_"));
+      const debugTools = tools.tools.filter(t => t.name.startsWith("debugger_"));
       
       // Core session tools
-      expect(debugTools.some(t => t.name === "debug_launch")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_attach")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_disconnect")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_launch")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_attach")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_disconnect")).toBe(true);
       
       // Breakpoint tools
-      expect(debugTools.some(t => t.name === "debug_set_breakpoint")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_remove_breakpoint")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_set_breakpoint")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_remove_breakpoint")).toBe(true);
       
       // Execution tools
-      expect(debugTools.some(t => t.name === "debug_continue")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_step_over")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_step_in")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_step_out")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_continue")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_step_over")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_step_in")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_step_out")).toBe(true);
       
       // Debugging tools
-      expect(debugTools.some(t => t.name === "debug_evaluate")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_variables")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_stack_trace")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_evaluate")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_variables")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_stack_trace")).toBe(true);
       
       // Exception tools
-      expect(debugTools.some(t => t.name === "debug_set_exception_breakpoints")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_set_exception_breakpoints")).toBe(true);
       
       // Watch tools
-      expect(debugTools.some(t => t.name === "debug_add_watch")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_remove_watch")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_evaluate_watches")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_add_watch")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_remove_watch")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_evaluate_watches")).toBe(true);
       
       // Source map tools
-      expect(debugTools.some(t => t.name === "debug_enable_source_maps")).toBe(true);
-      expect(debugTools.some(t => t.name === "debug_check_source_map")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_enable_source_maps")).toBe(true);
+      expect(debugTools.some(t => t.name === "debugger_check_source_map")).toBe(true);
     });
   });
 });

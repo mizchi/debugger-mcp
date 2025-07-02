@@ -9,7 +9,7 @@ export function createSourceMapTools(
 ): ToolDef<z.ZodType>[] {
   
   const enableSourceMapsTool: ToolDef<z.ZodType> = {
-    name: "debug_enable_source_maps",
+    name: "debugger_enable_source_maps",
     description: "Enable or disable source map support for the debug session",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -38,7 +38,7 @@ export function createSourceMapTools(
   };
 
   const checkSourceMapTool: ToolDef<z.ZodType> = {
-    name: "debug_check_source_map",
+    name: "debugger_check_source_map",
     description: "Check if a file has an associated source map",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -62,7 +62,7 @@ export function createSourceMapTools(
   };
 
   const mapLocationTool: ToolDef<z.ZodType> = {
-    name: "debug_map_location",
+    name: "debugger_map_location",
     description: "Map a location between source and generated code using source maps",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -101,7 +101,7 @@ export function createSourceMapTools(
   };
 
   const getSourceContentTool: ToolDef<z.ZodType> = {
-    name: "debug_get_source_content",
+    name: "debugger_get_source_content",
     description: "Get the content of a source file with line numbers",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -134,7 +134,7 @@ export function createSourceMapTools(
   };
 
   const transformStackTraceTool: ToolDef<z.ZodType> = {
-    name: "debug_transform_stack_trace",
+    name: "debugger_transform_stack_trace",
     description: "Transform a stack trace using source maps",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -178,7 +178,7 @@ export function createSourceMapTools(
   };
 
   const clearSourceMapCacheTool: ToolDef<z.ZodType> = {
-    name: "debug_clear_source_map_cache",
+    name: "debugger_clear_source_map_cache",
     description: "Clear the source map cache",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),
@@ -195,7 +195,7 @@ export function createSourceMapTools(
   };
 
   const setBreakpointWithSourceMapTool: ToolDef<z.ZodType> = {
-    name: "debug_set_breakpoint_source_mapped",
+    name: "debugger_set_breakpoint_source_mapped",
     description: "Set a breakpoint with automatic source map resolution",
     schema: z.object({
       sessionId: z.string().describe("Debug session ID"),

@@ -44,7 +44,7 @@ describe("DAP MCP Watch Expressions", () => {
   afterEach(async () => {
     try {
       await client.callTool({
-        name: "debug_disconnect",
+        name: "debugger_disconnect",
         arguments: {
           sessionId,
         },
@@ -77,7 +77,7 @@ for (let i = 0; i < 5; i++) {
       try {
         // Launch debug session
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -91,7 +91,7 @@ for (let i = 0; i < 5; i++) {
 
         // Add watch expressions
         const result1 = await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "count",
@@ -106,7 +106,7 @@ for (let i = 0; i < 5; i++) {
 
         // Add more watches
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "message",
@@ -114,7 +114,7 @@ for (let i = 0; i < 5; i++) {
         });
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "obj.x + obj.y",
@@ -123,7 +123,7 @@ for (let i = 0; i < 5; i++) {
 
         // List watches
         const listResult = await client.callTool({
-          name: "debug_list_watches",
+          name: "debugger_list_watches",
           arguments: {
             sessionId,
           },
@@ -166,7 +166,7 @@ debugger;  // Third stop
       try {
         // Launch debug session
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -180,7 +180,7 @@ debugger;  // Third stop
 
         // Add watches without immediate evaluation
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "a",
@@ -189,7 +189,7 @@ debugger;  // Third stop
         });
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "b",
@@ -198,7 +198,7 @@ debugger;  // Third stop
         });
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "result",
@@ -207,7 +207,7 @@ debugger;  // Third stop
         });
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "a + b",
@@ -217,7 +217,7 @@ debugger;  // Third stop
 
         // Evaluate all watches
         const evalResult = await client.callTool({
-          name: "debug_evaluate_watches",
+          name: "debugger_evaluate_watches",
           arguments: {
             sessionId,
           },
@@ -236,7 +236,7 @@ debugger;  // Third stop
 
         // Continue to next breakpoint
         await client.callTool({
-          name: "debug_continue",
+          name: "debugger_continue",
           arguments: {
             sessionId,
           },
@@ -247,7 +247,7 @@ debugger;  // Third stop
 
         // Evaluate watches again
         const evalResult2 = await client.callTool({
-          name: "debug_evaluate_watches",
+          name: "debugger_evaluate_watches",
           arguments: {
             sessionId,
           },
@@ -265,7 +265,7 @@ debugger;  // Third stop
 
     it("should update and remove watch expressions", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -279,7 +279,7 @@ debugger;  // Third stop
 
       // Add a watch
       const addResult = await client.callTool({
-        name: "debug_add_watch",
+        name: "debugger_add_watch",
         arguments: {
           sessionId,
           expression: "x",
@@ -293,7 +293,7 @@ debugger;  // Third stop
 
       // Update the watch
       const updateResult = await client.callTool({
-        name: "debug_update_watch",
+        name: "debugger_update_watch",
         arguments: {
           sessionId,
           watchId,
@@ -310,7 +310,7 @@ debugger;  // Third stop
 
       // Get specific watch
       const getResult = await client.callTool({
-        name: "debug_get_watch",
+        name: "debugger_get_watch",
         arguments: {
           sessionId,
           watchId,
@@ -324,7 +324,7 @@ debugger;  // Third stop
 
       // Remove the watch
       const removeResult = await client.callTool({
-        name: "debug_remove_watch",
+        name: "debugger_remove_watch",
         arguments: {
           sessionId,
           watchId,
@@ -336,7 +336,7 @@ debugger;  // Third stop
 
       // Verify it's gone
       const listResult = await client.callTool({
-        name: "debug_list_watches",
+        name: "debugger_list_watches",
         arguments: {
           sessionId,
         },
@@ -348,7 +348,7 @@ debugger;  // Third stop
 
     it("should handle watch expression errors", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -359,7 +359,7 @@ debugger;  // Third stop
 
       // Add a watch with invalid expression
       await client.callTool({
-        name: "debug_add_watch",
+        name: "debugger_add_watch",
         arguments: {
           sessionId,
           expression: "undefinedVariable",
@@ -368,7 +368,7 @@ debugger;  // Third stop
       });
 
       await client.callTool({
-        name: "debug_add_watch",
+        name: "debugger_add_watch",
         arguments: {
           sessionId,
           expression: "x.y.z.nonexistent",
@@ -378,7 +378,7 @@ debugger;  // Third stop
 
       // Evaluate watches
       const evalResult = await client.callTool({
-        name: "debug_evaluate_watches",
+        name: "debugger_evaluate_watches",
         arguments: {
           sessionId,
         },
@@ -391,7 +391,7 @@ debugger;  // Third stop
 
     it("should clear all watches", async () => {
       await client.callTool({
-        name: "debug_launch",
+        name: "debugger_launch",
         arguments: {
           sessionId,
           adapter: "node",
@@ -403,7 +403,7 @@ debugger;  // Third stop
       // Add multiple watches
       for (let i = 0; i < 5; i++) {
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: `watch_${i}`,
@@ -413,7 +413,7 @@ debugger;  // Third stop
 
       // Clear all watches
       const clearResult = await client.callTool({
-        name: "debug_clear_watches",
+        name: "debugger_clear_watches",
         arguments: {
           sessionId,
         },
@@ -424,7 +424,7 @@ debugger;  // Third stop
 
       // Verify they're all gone
       const listResult = await client.callTool({
-        name: "debug_list_watches",
+        name: "debugger_list_watches",
         arguments: {
           sessionId,
         },
@@ -457,7 +457,7 @@ debugger;
 
       try {
         await client.callTool({
-          name: "debug_launch",
+          name: "debugger_launch",
           arguments: {
             sessionId,
             adapter: "node",
@@ -471,7 +471,7 @@ debugger;
 
         // Add watches for complex values
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "obj",
@@ -480,7 +480,7 @@ debugger;
         });
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "obj.nested.array[1]",
@@ -489,7 +489,7 @@ debugger;
         });
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "arr.length",
@@ -498,7 +498,7 @@ debugger;
         });
 
         await client.callTool({
-          name: "debug_add_watch",
+          name: "debugger_add_watch",
           arguments: {
             sessionId,
             expression: "arr[3].x",
@@ -507,7 +507,7 @@ debugger;
         });
 
         const listResult = await client.callTool({
-          name: "debug_list_watches",
+          name: "debugger_list_watches",
           arguments: {
             sessionId,
           },
