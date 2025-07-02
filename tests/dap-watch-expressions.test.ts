@@ -86,6 +86,9 @@ for (let i = 0; i < 5; i++) {
           },
         });
 
+        // Wait for the program to hit the debugger statement
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
         // Add watch expressions
         const result1 = await client.callTool({
           name: "debug_add_watch",
@@ -171,6 +174,9 @@ debugger;  // Third stop
             stopOnEntry: false,
           },
         });
+
+        // Wait for the program to hit the first debugger statement
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Add watches without immediate evaluation
         await client.callTool({
@@ -267,6 +273,9 @@ debugger;  // Third stop
           args: ["-e", "let x = 42; debugger; x = 100; debugger;"],
         },
       });
+
+      // Wait for the program to hit the first debugger statement
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       // Add a watch
       const addResult = await client.callTool({
@@ -456,6 +465,9 @@ debugger;
             stopOnEntry: false,
           },
         });
+
+        // Wait for the program to hit the debugger statement
+        await new Promise(resolve => setTimeout(resolve, 1000));
 
         // Add watches for complex values
         await client.callTool({
