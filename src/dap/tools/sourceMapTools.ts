@@ -216,13 +216,11 @@ export function createSourceMapTools(
       
       // Map the breakpoint location if needed
       let targetLine = args.line;
-      let targetColumn = args.column || 0;
       
       if (debugPath !== args.source) {
         const mapped = sourceMapManager.mapSourceBreakpoint(args.source, args.line, args.column || 0);
         if (mapped) {
           targetLine = mapped.line;
-          targetColumn = mapped.column;
         }
       }
 

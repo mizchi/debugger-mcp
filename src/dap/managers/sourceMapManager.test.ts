@@ -3,7 +3,6 @@ import { SourceMapManager } from "./sourceMapManager";
 import { SourceMapResolver } from "../utils/sourceMapSupport";
 import type { StackFrame } from "../types";
 import * as fs from "fs";
-import * as path from "path";
 
 // Mock the dependencies
 vi.mock("../utils/sourceMapSupport");

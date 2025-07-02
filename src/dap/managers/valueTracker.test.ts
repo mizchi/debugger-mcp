@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { ValueTracker, ValueHistoryEntry } from "./valueTracker";
+import { ValueTracker } from "./valueTracker";
 
 describe("ValueTracker", () => {
   let valueTracker: ValueTracker;

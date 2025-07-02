@@ -54,13 +54,6 @@ export function createExceptionTools(
         SessionState.RUNNING,
       ]);
 
-      // Store exception breakpoint configuration in session
-      const config = {
-        filters: args.filters,
-        filterOptions: args.filterOptions || [],
-        exceptionOptions: args.exceptionOptions || []
-      };
-
       // Set exception breakpoints in debug adapter
       const response = await sessionInfo.session.setExceptionBreakpoints(
         args.filters,

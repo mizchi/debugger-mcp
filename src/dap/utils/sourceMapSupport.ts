@@ -105,7 +105,7 @@ export class SourceMapResolver {
           source: mapped.source,
           line: mapped.line,
           column: mapped.column,
-          name: mapped.name || undefined
+          name: (mapped as any).name || undefined
         };
       }
     } catch (error) {
