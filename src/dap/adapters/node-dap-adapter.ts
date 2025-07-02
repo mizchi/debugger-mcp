@@ -10,17 +10,14 @@
 import { EventEmitter } from "events";
 import { spawn, ChildProcess } from "child_process";
 import * as net from "net";
-import * as http from "http";
 import type {
   DAPRequest,
   DAPResponse,
   DAPEvent,
-  InitializeRequestArguments,
   InitializeResponse,
   LaunchRequestArguments,
   SetBreakpointsArguments,
   SetBreakpointsResponse,
-  StackTraceArguments,
   StackTraceResponse,
   ScopesArguments,
   ScopesResponse,
@@ -28,28 +25,16 @@ import type {
   VariablesResponse,
   EvaluateArguments,
   EvaluateResponse,
-  ContinueArguments,
   ThreadsResponse,
   StackFrame,
   Scope,
   Variable,
   Breakpoint,
-  Source,
   StoppedEvent,
   OutputEvent,
   TerminatedEvent,
   InitializedEvent,
 } from "../types.ts";
-
-interface CDPDebuggerInfo {
-  description: string;
-  devtoolsFrontendUrl: string;
-  id: string;
-  title: string;
-  type: string;
-  url: string;
-  webSocketDebuggerUrl: string;
-}
 
 interface CDPLocation {
   scriptId: string;
@@ -83,19 +68,6 @@ interface CDPRemoteObject {
   description?: string;
   objectId?: string;
   preview?: any;
-}
-
-interface CDPPropertyDescriptor {
-  name: string;
-  value?: CDPRemoteObject;
-  writable?: boolean;
-  get?: CDPRemoteObject;
-  set?: CDPRemoteObject;
-  configurable?: boolean;
-  enumerable?: boolean;
-  wasThrown?: boolean;
-  isOwn?: boolean;
-  symbol?: CDPRemoteObject;
 }
 
 class NodeDAPAdapter extends EventEmitter {
@@ -367,7 +339,6 @@ class NodeDAPAdapter extends EventEmitter {
 
   private processWebSocketFrames(): void {
     while (this.wsBuffer.length >= 2) {
-      const fin = (this.wsBuffer[0] & 0x80) === 0x80;
       const opcode = this.wsBuffer[0] & 0x0F;
       const masked = (this.wsBuffer[1] & 0x80) === 0x80;
       let payloadLength = this.wsBuffer[1] & 0x7F;
@@ -644,8 +615,6 @@ class NodeDAPAdapter extends EventEmitter {
   }
 
   private async handleStackTrace(request: DAPRequest): Promise<void> {
-    const args = request.arguments as StackTraceArguments;
-    
     if (!this.isPaused || this.currentCallFrames.length === 0) {
       const response: StackTraceResponse = {
         stackFrames: [],
@@ -1075,7 +1044,7 @@ class NodeDAPAdapter extends EventEmitter {
 }
 
 // Start the adapter
-const adapter = new NodeDAPAdapter();
+new NodeDAPAdapter();
 
 // Handle process termination
 process.on("SIGINT", () => {

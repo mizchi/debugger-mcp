@@ -1,5 +1,5 @@
 {
-  "name": "@mizchi/dap-mcp",
+  "name": "debugger-mcp",
   "version": "0.1.0",
   "type": "module",
   "license": "MIT",
@@ -12,10 +12,11 @@
     "prepublishOnly": "pnpm build",
     "build": "tsdown",
     "test": "vitest --run tests/dap-*.test.ts",
-    "typecheck": "tsc -p . --noEmit"
+    "typecheck": "tsc -p . --noEmit",
+    "lint": "oxlint src tests"
   },
   "bin": {
-    "dap-mcp": "./dist/dap-mcp.js"
+    "debugger-mcp": "./dist/dap-mcp.js"
   },
   "files": [
     "dist",
@@ -26,10 +27,13 @@
     "@modelcontextprotocol/sdk": "^1.12.1",
     "@vscode/debugadapter": "^1.51.0",
     "neverthrow": "^8.2.0",
+    "source-map-support": "^0.5.21",
     "zod": "^3.25.56"
   },
   "devDependencies": {
     "@types/node": "^22.15.30",
+    "@types/source-map-support": "^0.5.10",
+    "oxlint": "^1.5.0",
     "tsdown": "^0.12.7",
     "typescript": "^5.7.3",
     "vitest": "^3.2.2"

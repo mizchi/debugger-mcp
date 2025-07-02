@@ -24,6 +24,7 @@ export class DAPClient extends EventEmitter {
   >();
   private buffer = "";
   private connectionType: "process" | "socket" = "process";
+  private capabilities: any = {};
 
   async connect(command: string, args: string[]): Promise<void> {
     // Check if this is a TCP connection
@@ -78,7 +79,12 @@ export class DAPClient extends EventEmitter {
       supportsInvalidatedEvent: true,
     };
 
-    return this.sendRequest("initialize", { ...defaultArgs, ...args });
+    const response = await this.sendRequest("initialize", { ...defaultArgs, ...args });
+    // Store capabilities from the response
+    if (response && response.body) {
+      this.capabilities = response.body;
+    }
+    return response;
   }
 
   async sendRequest<T = any>(command: string, args?: any): Promise<T> {
@@ -150,6 +156,12 @@ export class DAPClient extends EventEmitter {
     const header = this.buffer.substring(0, headerEndIndex);
     const contentLengthMatch = header.match(/Content-Length: (\d+)/);
     if (!contentLengthMatch) {
+      // Invalid header, skip this line and try again
+      const nextLineIndex = this.buffer.indexOf("\n");
+      if (nextLineIndex !== -1) {
+        this.buffer = this.buffer.substring(nextLineIndex + 1);
+        return this.tryParseMessage();
+      }
       throw new Error("Invalid header: missing Content-Length");
     }
 
@@ -164,7 +176,15 @@ export class DAPClient extends EventEmitter {
 
     try {
       return JSON.parse(body);
-    } catch {
+    } catch (error) {
+      console.error(`[DAP] Failed to parse JSON: ${body}`);
+      console.error(`[DAP] Error: ${error}`);
+      // Try to recover by finding the next message
+      const nextHeaderIndex = this.buffer.indexOf("Content-Length:");
+      if (nextHeaderIndex !== -1) {
+        this.buffer = this.buffer.substring(nextHeaderIndex);
+        return this.tryParseMessage();
+      }
       throw new Error(`Failed to parse message body: ${body}`);
     }
   }
@@ -228,6 +248,10 @@ export class DAPClient extends EventEmitter {
         });
       }
     }
+  }
+
+  getCapabilities(): any {
+    return this.capabilities;
   }
 
   disconnect(): void {

@@ -11,7 +11,6 @@ console.error("[DEBUG-ADAPTER] Starting...");
 let seq = 1;
 let child: ChildProcess | null = null;
 let variables: Record<string, any> = {};
-let isInitialized = false;
 
 function sendMessage(message: any) {
   const json = JSON.stringify(message);
@@ -86,14 +85,29 @@ function handleRequest(request: any) {
         supportsConfigurationDoneRequest: true,
         supportsConditionalBreakpoints: false,
         supportsEvaluateForHovers: true,
-        supportsStepBack: false
+        supportsStepBack: false,
+        exceptionBreakpointFilters: [
+          {
+            filter: "all",
+            label: "All Exceptions",
+            description: "Break on all exceptions",
+            default: false,
+            supportsCondition: true
+          },
+          {
+            filter: "uncaught",
+            label: "Uncaught Exceptions",
+            description: "Break on uncaught exceptions only",
+            default: true,
+            supportsCondition: false
+          }
+        ]
       });
       
       // Send initialized event
       setTimeout(() => {
         console.error("[DEBUG-ADAPTER] Sending initialized event");
         sendEvent("initialized");
-        isInitialized = true;
       }, 10);
       break;
     
@@ -105,6 +119,20 @@ function handleRequest(request: any) {
       child = spawn("node", [program, ...args], {
         stdio: ["pipe", "pipe", "pipe"]
       });
+      
+      let outputBuffer = "";
+      let outputTimer: NodeJS.Timeout | null = null;
+      
+      const flushOutput = () => {
+        if (outputBuffer) {
+          sendEvent("output", {
+            category: "stdout",
+            output: outputBuffer
+          });
+          outputBuffer = "";
+        }
+        outputTimer = null;
+      };
       
       child.stdout?.on("data", (data) => {
         const output = data.toString();
@@ -122,22 +150,53 @@ function handleRequest(request: any) {
           }
         }
         
-        sendEvent("output", {
-          category: "stdout",
-          output
-        });
+        // Buffer output and send after a short delay
+        outputBuffer += output;
+        if (outputTimer) {
+          clearTimeout(outputTimer);
+        }
+        outputTimer = setTimeout(flushOutput, 10);
       });
       
+      let stderrBuffer = "";
+      let stderrTimer: NodeJS.Timeout | null = null;
+      
+      const flushStderr = () => {
+        if (stderrBuffer) {
+          sendEvent("output", {
+            category: "stderr",
+            output: stderrBuffer
+          });
+          stderrBuffer = "";
+        }
+        stderrTimer = null;
+      };
+      
       child.stderr?.on("data", (data) => {
-        console.error(`[DEBUG-ADAPTER] Program stderr: ${data.toString().trim()}`);
-        sendEvent("output", {
-          category: "stderr",
-          output: data.toString()
-        });
+        const output = data.toString();
+        console.error(`[DEBUG-ADAPTER] Program stderr: ${output.trim()}`);
+        
+        // Buffer stderr and send after a short delay
+        stderrBuffer += output;
+        if (stderrTimer) {
+          clearTimeout(stderrTimer);
+        }
+        stderrTimer = setTimeout(flushStderr, 10);
       });
       
       child.on("exit", (code) => {
         console.error(`[DEBUG-ADAPTER] Program exited with code ${code}`);
+        
+        // Flush any remaining output
+        if (outputTimer) {
+          clearTimeout(outputTimer);
+          flushOutput();
+        }
+        if (stderrTimer) {
+          clearTimeout(stderrTimer);
+          flushStderr();
+        }
+        
         sendEvent("terminated", { exitCode: code });
       });
       
@@ -215,6 +274,26 @@ function handleRequest(request: any) {
       }));
       
       sendResponse(request, { variables: vars });
+      break;
+    
+    case "setExceptionBreakpoints":
+      console.error("[DEBUG-ADAPTER] Handling setExceptionBreakpoints");
+      sendResponse(request, {
+        breakpoints: []
+      });
+      break;
+    
+    case "exceptionInfo":
+      console.error("[DEBUG-ADAPTER] Handling exceptionInfo");
+      sendResponse(request, {
+        exceptionId: "Error",
+        description: "Test exception",
+        breakMode: "always",
+        details: {
+          message: "Test exception",
+          typeName: "Error"
+        }
+      });
       break;
     
     case "disconnect":

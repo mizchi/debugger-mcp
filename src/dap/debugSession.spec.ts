@@ -46,7 +46,7 @@ describe("Debug Session API", () => {
       stopped = true;
     });
 
-    await session.setBreakpoints("/test/file.js", [10]);
+    await session.setBreakpoints("/test/file.js", [{ line: 10 }]);
     await session.launch("/test/program.js");
 
     // Wait for breakpoint
@@ -97,7 +97,7 @@ describe("Debug Session API", () => {
     session.on("continued", () => events.push("continued"));
     session.on("terminated", () => events.push("terminated"));
 
-    await session.setBreakpoints("/test/file.js", [10]);
+    await session.setBreakpoints("/test/file.js", [{ line: 10 }]);
     await session.launch("/test/program.js");
 
     // Wait for stopped

@@ -525,11 +525,7 @@ export class EnhancedMockDAPServer extends EventEmitter {
   }
 
   private sendMessage(message: any, socket: Socket) {
-    const json = JSON.stringify(message);
-    const contentLength = Buffer.byteLength(json, "utf8");
-    const response = `Content-Length: ${contentLength}\r\n\r\n${json}`;
-
-    socket.write(response);
+    sendDAPMessage(message, socket);
   }
 
   listen(port: number, callback?: () => void) {

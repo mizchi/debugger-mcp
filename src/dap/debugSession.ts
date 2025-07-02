@@ -119,18 +119,17 @@ export class DebugSession {
    */
   async setBreakpoints(
     source: string,
-    lines: number[],
-    conditions?: string[]
-  ): Promise<void> {
+    breakpoints: Array<{ line: number; condition?: string }>
+  ): Promise<{ breakpoints: Array<{ verified: boolean }> }> {
     const args: SetBreakpointsArguments = {
       source: { path: source },
-      breakpoints: lines.map((line, i) => ({
-        line,
-        condition: conditions?.[i],
+      breakpoints: breakpoints.map((bp) => ({
+        line: bp.line,
+        condition: bp.condition,
       })),
     };
 
-    await this.client.sendRequest("setBreakpoints", args);
+    return await this.client.sendRequest("setBreakpoints", args);
   }
 
   /**
@@ -264,6 +263,51 @@ export class DebugSession {
     if (!tid) throw new Error("No active thread");
 
     await this.client.sendRequest("pause", { threadId: tid });
+  }
+
+  /**
+   * Terminate the debuggee
+   */
+  async terminate(): Promise<void> {
+    await this.client.sendRequest("terminate", {});
+  }
+
+  /**
+   * Get list of threads
+   */
+  async threads(): Promise<{ threads: Array<{ id: number; name: string }> }> {
+    return await this.client.sendRequest("threads", {});
+  }
+
+  /**
+   * Set exception breakpoints
+   */
+  async setExceptionBreakpoints(
+    filters: string[],
+    filterOptions?: Array<{ filterId: string; condition?: string }>,
+    exceptionOptions?: any[]
+  ): Promise<any> {
+    const args: any = {
+      filters,
+      filterOptions,
+      exceptionOptions
+    };
+
+    return await this.client.sendRequest("setExceptionBreakpoints", args);
+  }
+
+  /**
+   * Get exception information
+   */
+  async getExceptionInfo(threadId: number): Promise<any> {
+    return await this.client.sendRequest("exceptionInfo", { threadId });
+  }
+
+  /**
+   * Get debug adapter capabilities
+   */
+  getCapabilities(): any {
+    return this.client.getCapabilities();
   }
 
   /**
